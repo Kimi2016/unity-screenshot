@@ -3,7 +3,7 @@
 ############################
 
 ############################
-# UNITY generated files
+# UNITY generated
 ############################
 
 */[Aa]ssets/*
@@ -16,8 +16,10 @@
 
 *.meta
 
+ScreenShot/
+
 ############################
-# VS generated files
+# VS generated
 ############################
 
 /.vs/
@@ -26,7 +28,7 @@
 *.sln
  
 ############################
-# OS generated files
+# OS generated
 ############################
 
 .DS_Store*

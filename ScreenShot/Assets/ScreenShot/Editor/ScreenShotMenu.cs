@@ -22,10 +22,12 @@
 */
 
 using System.IO;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
 using DIY.Framework.Utils;
+using Debug = UnityEngine.Debug;
 
 namespace DIY.Framework.Menu
 {
@@ -37,36 +39,39 @@ namespace DIY.Framework.Menu
         {
             new ScreenShotSetup();            
         }
-
-        private static Camera GetCamera
+        
+        private static Camera[] GetCameras
         {
             get
-            {
-                var sel = Selection.objects;
-                if (sel.Length > 1 || sel.Length < 1)
+            {                
+                var selectedObjects = Selection.objects;
+                if (selectedObjects.Length < 1) return null;
+
+                var cameras = new List<Camera>();
+                foreach (var selectedObject in selectedObjects)
                 {
-                    Debug.Log("Selection must contain one (only) object.");
-                    return null;
+                    var selectedGameObject = selectedObject as GameObject;
+                    if (selectedGameObject == null) continue;
+
+                    var camera = selectedGameObject.GetComponent<Camera>();
+                    if (camera == null) continue;                    
+
+                    cameras.Add(camera);
                 }
 
-                var selectedGameObject = sel[0] as GameObject;
-                if (selectedGameObject == null) return null;
-
-                var camera = selectedGameObject.GetComponent<Camera>();
-                if (camera == null)
-                {
-                    Debug.Log("Selected object doesn't contain <Camera> component.");
-                    return null;
-                }
-
-                return camera;
+                return cameras.Count < 1? null: cameras.ToArray();
             }
         }
 
-        private static void SetupResolutionSetting(ScreenShotResoltutionOption resolutionoption, Camera camera)
+        private static void SetupAndTakeShot(ScreenShotResoltutionOption resolutionoption)
         {
             _screenShotSetting = ScreenShotSetting.GetSetting(resolutionoption);
-            if (_screenShotSetting != null) ScreenShotUtils.TakeScreenShot(_screenShotSetting.Width, _screenShotSetting.Height, _screenShotSetting.Multiplier, camera);
+            if (_screenShotSetting == null) return;
+
+            var cameras = GetCameras;
+            if (cameras == null) return;
+
+            foreach (var currCamera in cameras) ScreenShotUtils.TakeScreenShot(_screenShotSetting.Width, _screenShotSetting.Height, _screenShotSetting.Multiplier, currCamera);
         }
 
         [MenuItem("ScreenShot/Show Directory", false, 00)]
@@ -121,64 +126,43 @@ namespace DIY.Framework.Menu
         [MenuItem("ScreenShot/25% Current", false, 11)]
         public static void ScreenShot_25PercentCurrentSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.CURRENT_25, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.CURRENT_25);
         }
 
         [MenuItem("ScreenShot/50% Current", false, 11)]
         public static void ScreenShot_50PercentCurrentSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.CURRENT_50, camera);          
+            SetupAndTakeShot(ScreenShotResoltutionOption.CURRENT_50);          
         }
 
         [MenuItem("ScreenShot/100% Current", false, 11)]
         public static void ScreenShot_100PercentCurrentSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.CURRENT_100, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.CURRENT_100);
         }
 
         [MenuItem("ScreenShot/150% Current", false, 11)]
         public static void ScreenShot_150PercentCurrentSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.CURRENT_150, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.CURRENT_150);
         }
 
         [MenuItem("ScreenShot/200% Current", false, 11)]
         public static void ScreenShot_200PercentCurrentSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.CURRENT_200, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.CURRENT_200);
         }
 
         [MenuItem("ScreenShot/400% Current", false, 11)]
         public static void ScreenShot_400PercentCurrentSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.CURRENT_400, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.CURRENT_400);
         }
 
         [MenuItem("ScreenShot/800% Current", false, 11)]
         public static void ScreenShot_800PercentCurrentSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.CURRENT_800, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.CURRENT_800);
         }
 
         /* ------------------------------------------------- FULL SCREEN */
@@ -186,64 +170,43 @@ namespace DIY.Framework.Menu
         [MenuItem("ScreenShot/25% Full Screen", false, 22)]
         public static void ScreenShot_25PercentFullScreenSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.FULLSCREEN_25, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.FULLSCREEN_25);
         }
 
         [MenuItem("ScreenShot/50% Full Screen", false, 22)]
         public static void ScreenShot_50PercentFullScreenSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.FULLSCREEN_50, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.FULLSCREEN_50);
         }
 
         [MenuItem("ScreenShot/100% Full Screen", false, 22)]
         public static void ScreenShot_100PercentFullScreenSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.FULLSCREEN_100, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.FULLSCREEN_100);
         }
 
         [MenuItem("ScreenShot/150% Full Screen", false, 22)]
         public static void ScreenShot_150PercentFullScreenSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.FULLSCREEN_150, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.FULLSCREEN_150);
         }
 
         [MenuItem("ScreenShot/200% Full Screen", false, 22)]
         public static void ScreenShot_200PercentFullScreenSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.FULLSCREEN_200, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.FULLSCREEN_200);
         }
 
         [MenuItem("ScreenShot/400% Full Screen", false, 22)]
         public static void ScreenShot_400PercentFullScreenSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.FULLSCREEN_400, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.FULLSCREEN_400);
         }
 
         [MenuItem("ScreenShot/800% Full Screen", false, 22)]
         public static void ScreenShot_800PercentFullScreenSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.FULLSCREEN_800, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.FULLSCREEN_800);
         }
 
         /* ---------------------------------------------- MOVIE RESOLUTIONS */
@@ -251,64 +214,70 @@ namespace DIY.Framework.Menu
         [MenuItem("ScreenShot/720p (16:9)", false, 33)]
         public static void ScreenShot_720pSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.P720, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.P720);
         }
 
         [MenuItem("ScreenShot/1080p (16:9)", false, 33)]
         public static void ScreenShot_1080pSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.P1080, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.P1080);
         }
 
         [MenuItem("ScreenShot/3K (16:9)", false, 33)]
         public static void ScreenShot_16_9_3KSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.THREE_K_16to9, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.THREE_K_16to9);
         }
 
         [MenuItem("ScreenShot/4K (16:9)", false, 33)]
         public static void ScreenShot_16to9_4KSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.FOUR_K_16to9, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.FOUR_K_16to9);
         }
 
         [MenuItem("ScreenShot/5K (16:9)", false, 33)]
         public static void ScreenShot_16to9_5KSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.FIVE_K_16to9, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.FIVE_K_16to9);
         }
 
         [MenuItem("ScreenShot/8K (16:9)", false, 33)]
         public static void ScreenShot_16to9_8KSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
-
-            SetupResolutionSetting(ScreenShotResoltutionOption.EIGHT_K_16to9, camera);
+            SetupAndTakeShot(ScreenShotResoltutionOption.EIGHT_K_16to9);
         }
 
         [MenuItem("ScreenShot/8K (16:10)", false, 33)]
         public static void ScreenShot_16to10_8KSize()
         {
-            var camera = GetCamera;
-            if (camera == null) return;
+            SetupAndTakeShot(ScreenShotResoltutionOption.EIGHT_K_16to10);
+        }
 
-            SetupResolutionSetting(ScreenShotResoltutionOption.EIGHT_K_16to10, camera);
+        [MenuItem("ScreenShot/25% Current", true)]
+        [MenuItem("ScreenShot/50% Current", true)]
+        [MenuItem("ScreenShot/100% Current", true)]
+        [MenuItem("ScreenShot/150% Current", true)]
+        [MenuItem("ScreenShot/200% Current", true)]
+        [MenuItem("ScreenShot/400% Current", true)]
+        [MenuItem("ScreenShot/800% Current", true)]
+        [MenuItem("ScreenShot/25% Full Screen", true)]
+        [MenuItem("ScreenShot/50% Full Screen", true)]
+        [MenuItem("ScreenShot/100% Full Screen", true)]
+        [MenuItem("ScreenShot/150% Full Screen", true)]
+        [MenuItem("ScreenShot/200% Full Screen", true)]
+        [MenuItem("ScreenShot/400% Full Screen", true)]
+        [MenuItem("ScreenShot/800% Full Screen", true)]
+        [MenuItem("ScreenShot/720p (16:9)", true)]
+        [MenuItem("ScreenShot/1080p (16:9)", true)]
+        [MenuItem("ScreenShot/3K (16:9)", true)]
+        [MenuItem("ScreenShot/4K (16:9)", true)]
+        [MenuItem("ScreenShot/5K (16:9)", true)]
+        [MenuItem("ScreenShot/8K (16:9)", true)]
+        [MenuItem("ScreenShot/8K (16:10)", true)]
+        public static bool ValidateAllResolutions()
+        {
+            var cameras = GetCameras;
+            return cameras != null;
         }
     }
 }

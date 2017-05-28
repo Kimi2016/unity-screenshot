@@ -43,9 +43,9 @@ namespace DIY.Framework.Utils
             }
         }
 
-        private static string GetFilePath(int width, int height)
-        {         
-            return string.Format("{0}screen_{1}x{2}_{3}.png", GetDirectoryPath, width, height, System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
+        private static string GetFilePath(int width, int height, Camera camera)
+        {
+            return string.Format("{0}{1}_{2}x{3}_{4}.png", GetDirectoryPath, camera.gameObject.name, width, height, System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss"));
         }
 
         public static void DeleteDirectory()
@@ -68,29 +68,33 @@ namespace DIY.Framework.Utils
 
         public static void TakeScreenShot(int width, int height, float multiplier, Camera camera)
         {
+            // set resolution
             var screenShotWidth = (int) (width * multiplier);
             var screenShotHeight = (int) (height * multiplier);
 
-            var rt = new RenderTexture(screenShotWidth, screenShotHeight, 24);
-            camera.targetTexture = rt;
-
-            var screenShot = new Texture2D(screenShotWidth, screenShotHeight, TextureFormat.RGB24, false);
+            // render camera with specified resolution
+            var renderTexture = new RenderTexture(screenShotWidth, screenShotHeight, 24);
+            camera.targetTexture = renderTexture;
             camera.Render();
-            
-            RenderTexture.active = rt;
+            RenderTexture.active = renderTexture;
+
+            // store in image
+            var screenShot = new Texture2D(screenShotWidth, screenShotHeight, TextureFormat.RGB24, false);
             screenShot.ReadPixels(new Rect(0, 0, screenShotWidth, screenShotHeight), 0, 0);
+
+            // clean up
             camera.targetTexture = null;
             RenderTexture.active = null;
 
 #if UNITY_EDITOR
-            Object.DestroyImmediate(rt);
+            Object.DestroyImmediate(renderTexture);
 #else
-            Object.Destroy(rt);
+            Object.Destroy(renderTexture);
 #endif
 
             // create path
             if (!Directory.Exists(GetDirectoryPath)) Directory.CreateDirectory(GetDirectoryPath);
-            var filename = GetFilePath(screenShotWidth, screenShotHeight);
+            var filename = GetFilePath(screenShotWidth, screenShotHeight, camera);            
 
             // flush data
             var bytes = screenShot.EncodeToPNG();

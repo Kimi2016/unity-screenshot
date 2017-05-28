@@ -61,7 +61,7 @@ namespace DIY.Framework
                 this._screenShotSetting = ScreenShotSetting.GetSetting((ScreenShotResoltutionOption)this._resolutionMode);
                 if (this._screenShotSetting == null)
                 {
-                    Debug.Log(string.Format("No seetting with {0} found.", this._resolutionMode));
+                    Debug.Log(string.Format("No setting with {0} found.", this._resolutionMode));
                     return;
                 }
 

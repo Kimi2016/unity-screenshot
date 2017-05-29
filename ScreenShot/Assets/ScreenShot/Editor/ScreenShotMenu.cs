@@ -27,7 +27,6 @@ using UnityEditor;
 using UnityEngine;
 
 using DIY.Framework.Utils;
-using Debug = UnityEngine.Debug;
 
 namespace DIY.Framework.Menu
 {
@@ -55,6 +54,7 @@ namespace DIY.Framework.Menu
 
                     var camera = selectedGameObject.GetComponent<Camera>();
                     if (camera == null) continue;                    
+                    if (camera.enabled == false) continue;
 
                     cameras.Add(camera);
                 }

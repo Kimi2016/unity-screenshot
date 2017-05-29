@@ -1,5 +1,5 @@
 ﻿/*
-	Screenshot utiity gameobject inspector.
+	Screenshot utility gameobject inspector.
 
 	IMPORTANT! ------------------------------------------	
 	-----------------------------------------------------

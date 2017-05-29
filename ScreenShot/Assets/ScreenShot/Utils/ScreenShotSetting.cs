@@ -1,5 +1,5 @@
 ﻿/*
-	Screenshot utiity container.
+	Screenshot utility container.
 
 	IMPORTANT! ------------------------------------------	
 	-----------------------------------------------------

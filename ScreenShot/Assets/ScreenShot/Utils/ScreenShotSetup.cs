@@ -1,5 +1,5 @@
 ﻿/*
-	Screenshot utiity setup.
+	Screenshot utility setup.
 
 	IMPORTANT! ------------------------------------------	
 	-----------------------------------------------------
@@ -58,6 +58,7 @@ namespace DIY.Framework.Utils
             AddSetting(ScreenShotResoltutionOption.FIVE_K_16to9, 5120, 2880, 1.0f, "5K (16:9)");
             AddSetting(ScreenShotResoltutionOption.EIGHT_K_16to9, 7680, 4320, 1.0f, "8K (16:9)");
             AddSetting(ScreenShotResoltutionOption.EIGHT_K_16to10, 8192, 5120, 1.0f, "8K (16:10)");
+            AddSetting(ScreenShotResoltutionOption.EIGHT_K_64to27, 10240, 4320, 1.0f, "8K (64:27)");
         }
 
         private static void AddSetting(ScreenShotResoltutionOption resolutionoption, int width, int height, float multiplier, string description)

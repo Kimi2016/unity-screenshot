@@ -1,5 +1,5 @@
 ﻿/*
-	Screenshot utiity gameobject.
+	Screenshot utility gameobject.
 
 	IMPORTANT! ------------------------------------------	
 	-----------------------------------------------------

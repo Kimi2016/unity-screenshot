@@ -1,5 +1,5 @@
 ﻿/*
-	Screenshot utiity menu.
+	Screenshot utility menu.
 
 	IMPORTANT! ------------------------------------------	
 	-----------------------------------------------------
@@ -73,6 +73,8 @@ namespace DIY.Framework.Menu
 
             foreach (var currCamera in cameras) ScreenShotUtils.TakeScreenShot(_screenShotSetting.Width, _screenShotSetting.Height, _screenShotSetting.Multiplier, currCamera);
         }
+
+        /* --------------------------------------------- DIRECTORY OPTIONS */
 
         [MenuItem("ScreenShot/Show Directory", false, 00)]
         public static void ShowDirectory()
@@ -253,20 +255,28 @@ namespace DIY.Framework.Menu
             SetupAndTakeShot(ScreenShotResoltutionOption.EIGHT_K_16to10);
         }
 
+        [MenuItem("ScreenShot/8K (64:27)", false, 33)]
+        public static void ScreenShot_64to27_8KSize()
+        {
+            SetupAndTakeShot(ScreenShotResoltutionOption.EIGHT_K_64to27);
+        }
+
+        /* ---------------------------------------------- VALIDATE ALL RESOLUTIONS */
+
         [MenuItem("ScreenShot/25% Current", true)]
         [MenuItem("ScreenShot/50% Current", true)]
         [MenuItem("ScreenShot/100% Current", true)]
         [MenuItem("ScreenShot/150% Current", true)]
         [MenuItem("ScreenShot/200% Current", true)]
         [MenuItem("ScreenShot/400% Current", true)]
-        [MenuItem("ScreenShot/800% Current", true)]
+        [MenuItem("ScreenShot/800% Current", true)]        
         [MenuItem("ScreenShot/25% Full Screen", true)]
         [MenuItem("ScreenShot/50% Full Screen", true)]
         [MenuItem("ScreenShot/100% Full Screen", true)]
         [MenuItem("ScreenShot/150% Full Screen", true)]
         [MenuItem("ScreenShot/200% Full Screen", true)]
         [MenuItem("ScreenShot/400% Full Screen", true)]
-        [MenuItem("ScreenShot/800% Full Screen", true)]
+        [MenuItem("ScreenShot/800% Full Screen", true)]        
         [MenuItem("ScreenShot/720p (16:9)", true)]
         [MenuItem("ScreenShot/1080p (16:9)", true)]
         [MenuItem("ScreenShot/3K (16:9)", true)]
@@ -274,6 +284,7 @@ namespace DIY.Framework.Menu
         [MenuItem("ScreenShot/5K (16:9)", true)]
         [MenuItem("ScreenShot/8K (16:9)", true)]
         [MenuItem("ScreenShot/8K (16:10)", true)]
+        [MenuItem("ScreenShot/8K (64:27)", true)]
         public static bool ValidateAllResolutions()
         {
             var cameras = GetCameras;

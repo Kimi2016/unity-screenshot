@@ -8,7 +8,7 @@ Menu options become active when there is selected at least one object with Camer
 ![Example](/Images/screenshot-0.gif)
 ![Example](/Images/screenshot-1.gif)
 
-<img src="/Images/example-1.png" width="800">
+<img src="/Images/example-1.jpg" width="800">
 
 **TODO:**
 - [ ] make movie overview

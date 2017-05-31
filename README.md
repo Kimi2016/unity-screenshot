@@ -5,8 +5,10 @@ Can be used from ScreenShot menu or attached to GameObject.
 
 Menu options become active when there is selected at least one object with Camera component attached. Otherwise options will be greyed out.
 
-![Example](/GIFs/screenshot-0.gif)
-![Example](/GIFs/screenshot-1.gif)
+![Example](/Images/screenshot-0.gif)
+![Example](/Images/screenshot-1.gif)
+
+<img src="/Images/example-1.png" width="800">
 
 **TODO:**
 - [ ] make movie overview

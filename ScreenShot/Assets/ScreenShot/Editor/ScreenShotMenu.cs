@@ -71,7 +71,7 @@ namespace DIY.Framework.Menu
             var cameras = GetCameras;
             if (cameras == null) return;
 
-            foreach (var currCamera in cameras) ScreenShotUtils.TakeScreenShot(_screenShotSetting.Width, _screenShotSetting.Height, _screenShotSetting.Multiplier, currCamera);
+            foreach (var currCamera in cameras) ScreenShotCommon.TakeScreenShot(_screenShotSetting.Width, _screenShotSetting.Height, _screenShotSetting.Multiplier, currCamera);
         }
 
         /* --------------------------------------------- DIRECTORY OPTIONS */
@@ -82,7 +82,7 @@ namespace DIY.Framework.Menu
             switch (UnityEngine.SystemInfo.operatingSystemFamily)
             {
                 case OperatingSystemFamily.Windows:
-                    System.Diagnostics.Process.Start("explorer.exe", (true ? "/root," : "/select,") + ScreenShotUtils.GetDirectoryPath);
+                    System.Diagnostics.Process.Start("explorer.exe", (true ? "/root," : "/select,") + ScreenShotCommon.GetDirectoryPath);
                     break;
                 case OperatingSystemFamily.MacOSX:
                     Debug.Log("Not implemented. I don't use MAC :)");
@@ -93,19 +93,19 @@ namespace DIY.Framework.Menu
         [MenuItem("ScreenShot/Show Directory", true)]
         public static bool ValidateShowDirectory()
         {
-            return Directory.Exists(ScreenShotUtils.GetDirectoryPath);
+            return Directory.Exists(ScreenShotCommon.GetDirectoryPath);
         }
 
         [MenuItem("ScreenShot/Clean Directory", false, 44)]
         public static void CleanDirectory()
         {
-            ScreenShotUtils.CleanDirectory();
+            ScreenShotCommon.CleanDirectory();
         }
 
         [MenuItem("ScreenShot/Clean Directory", true)]
         public static bool ValidateCleanDirectory()
         {
-            var directory = ScreenShotUtils.GetDirectoryPath;
+            var directory = ScreenShotCommon.GetDirectoryPath;
             if (!Directory.Exists(directory)) return false;
 
             return Directory.GetFiles(directory).Length > 0;
@@ -114,13 +114,13 @@ namespace DIY.Framework.Menu
         [MenuItem("ScreenShot/Delete Directory", false, 44)]
         public static void DeleteDirectory()
         {
-            ScreenShotUtils.DeleteDirectory();
+            ScreenShotCommon.DeleteDirectory();
         }
 
         [MenuItem("ScreenShot/Delete Directory", true)]
         public static bool ValidateDeleteDirectory()
         {
-            return Directory.Exists(ScreenShotUtils.GetDirectoryPath);
+            return Directory.Exists(ScreenShotCommon.GetDirectoryPath);
         }
 
         /* --------------------------------------------- CURRENT RESOLUTION */

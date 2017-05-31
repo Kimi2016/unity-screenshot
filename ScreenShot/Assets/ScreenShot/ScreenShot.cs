@@ -70,7 +70,7 @@ namespace DIY.Framework
                 this._multiplier = this._screenShotSetting.Multiplier;
             }
 
-            ScreenShotUtils.TakeScreenShot(this._width, this._height, this._multiplier, this._camera);
+            ScreenShotCommon.TakeScreenShot(this._width, this._height, this._multiplier, this._camera);
 
             this._canTakeScreenShot = false;
         }

@@ -25,7 +25,7 @@ using UnityEditor;
 using UnityEngine;
 using DIY.Framework.Utils;
 
-namespace DIY.Framework
+namespace DIY.Framework.Editors
 {
     [CustomEditor(typeof(ScreenShot))]
     public class ScreenShotEditor : Editor

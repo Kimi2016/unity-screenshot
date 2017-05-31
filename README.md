@@ -10,6 +10,3 @@ Overview [video](https://www.youtube.com/watch?v=q4cXNPYGCBc&feature=youtu.be) o
 **Example images taken in 6400x1520 resolution:**
 <img src="/Images/example-1.jpg" width="800">
 <img src="/Images/example-2.jpg" width="800">
-
-**TODO:**
-- [ ] make movie overview

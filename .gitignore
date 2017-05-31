@@ -12,11 +12,11 @@
 */[Bb]uild/
 */[Pp]rojectSettings
 
-!*/[Aa]ssets/ScreenShot
+!*/[Aa]ssets/[Ss]creen[Ss]hot
 
 *.meta
 
-ScreenShot/
+*/[Ss]creen[Ss]hots/
 
 ############################
 # VS generated
